@@ -16,4 +16,7 @@ with open(filename, 'wb') as fd:
 # parse it using beautifulsoup
 with open(filename, 'r') as fp:
     soup = BeautifulSoup(fp, 'html.parser')
-    
+
+# each section is an h3; find each and add to list
+header_list = soup.find_all('h3')
+
