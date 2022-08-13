@@ -1,5 +1,9 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
+
+CLEANR = re.compile('<.*?>')
 
 # download webpage (don't tell Parson)
 headers = {
@@ -19,4 +23,22 @@ with open(filename, 'r') as fp:
 
 # each section is an h3; find each and add to list
 header_list = soup.find_all('h3')
+cleaned_header_list = []
 
+for h in header_list:
+    cleaned_header_list.append(str(h))
+
+rep_table_list = []
+dem_table_list = []
+for ch in cleaned_header_list:
+    # find the header in the document
+    header = soup.find(string=ch)
+    # once the first header is established (and stored?), get the next item, which should be the first table.
+    first_table = header.find_next('table') 
+    # add header to rep_table_list, if it's republican
+
+    # once you get the first table, you can get the second... if there is one.
+    
+def cleanhtml(raw_html):
+    cleantext = re.sub(CLEANR, '', raw_html)
+    return cleantext
